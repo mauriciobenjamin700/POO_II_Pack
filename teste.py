@@ -12,3 +12,5 @@ else:
 """
 
 print(f'Nos estamos no mês de {DataFormatada.nome_mes()}')
+
+print(f'Estamos neste momento na hora {DataFormatada.hora()}')

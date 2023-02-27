@@ -7,6 +7,10 @@ class DataFormatada(abc.ABC):
         data = str(datetime.now())
         return f'{data[8:10]}/{data[5:7]}/{data[0:4]} {data[11:16]}'
 
+    def hora():
+        data = str(datetime.now())
+        return f'{data[11:16]}'
+
     def data():
         data = str(datetime.now())
         return f'{data[8:10]}/{data[5:7]}/{data[0:4]}'
@@ -23,9 +27,10 @@ class DataFormatada(abc.ABC):
         data = str(datetime.now())
         return f'{data[0:4]}'
 
-    def nome_mes():
-        data = str(datetime.now())
-        mes = data[5:7]
+    def nome_mes(mes=None):
+        if mes == None:
+            data = str(datetime.now())
+            mes = data[5:7]
 
         if mes == '01':
             return 'Janeiro'
