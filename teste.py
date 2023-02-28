@@ -11,6 +11,11 @@ else:
     print('Digite um ano corretamente')
 """
 
-print(f'Nos estamos no mês de {DataFormatada.nome_mes()}')
+#print(f'Nos estamos no mês de {DataFormatada.nome_mes()}')
 
-print(f'Estamos neste momento na hora {DataFormatada.hora()}')
+#print(f'Estamos neste momento na hora {DataFormatada.hora()}')
+
+#print(DataFormatada.data_hora())
+#print(DataFormatada.data_hora(True))
+
+print(DataFormatada.minutos())
