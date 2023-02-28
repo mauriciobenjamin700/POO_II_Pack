@@ -110,8 +110,49 @@ class DataFormatada(abc.ABC):
             return False
     
     # esta função deve receber duas datas e retornar a quantidade de dias dentro do intervalo das datas
-    def quantidade_dias(inicio,fim):
-        pass
+
+    def quantidade_dias_mes(bissexto=False):
+        if bissexto == False:
+            jan = 31
+            fev = 28
+            mar = 31
+            Abr = 30
+            maio = 31
+            jun = 30
+            jul = 31
+            ago = 31
+            set = 30
+            out = 31
+            nov = 30
+            dez = 31
+            return [jan,fev,mar,Abr,maio,jun,jul,ago,set,out,nov,dez]
+        else:
+            jan = 31
+            fev = 29
+            mar = 31
+            Abr = 30
+            maio = 31
+            jun = 30
+            jul = 31
+            ago = 31
+            set = 30
+            out = 31
+            nov = 30
+            dez = 31
+            return [jan,fev,mar,Abr,maio,jun,jul,ago,set,out,nov,dez]
+
+
+    def quantidade_dias(inicio,fim): # teste usando 12/09/2021 -> 15/10/2021
+        #testar se estamos no mesmo ano e o inicio do intervalo e menor que o fim do intervalo
+        if (int(inicio[6::])) == int(fim[6::]) & int(inicio[3:5]) == int(fim[3:5]):
+            if int(inicio[0:2]) < int(fim[0:2]):
+
+                #diferença de mês -> mes_final-mes_inicio -> 10-9 == 1
+                dif_meses = int(fim[3:5]) - int(inicio[3:5])
+                #diferença de dias -> dia_final - dia_inicial -> 15 - 12 == 3
+                dif_dias = int(fim[0:2]) - int(inicio[0:2])
+
+                return f'{(dif_meses*30)+dif_dias}' 
 
 """
 if __name__ == '__main__':
