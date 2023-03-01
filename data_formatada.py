@@ -131,7 +131,7 @@ class DataFormatada(abc.ABC):
             fev = 29
             mar = 31
             Abr = 30
-            maio = 31
+            maio= 31
             jun = 30
             jul = 31
             ago = 31
@@ -139,22 +139,51 @@ class DataFormatada(abc.ABC):
             out = 31
             nov = 30
             dez = 31
+
             return [jan,fev,mar,Abr,maio,jun,jul,ago,set,out,nov,dez]
 
 
     def quantidade_dias(inicio,fim): # teste usando 12/09/2021 -> 15/10/2021
         #testar se estamos no mesmo ano e o inicio do intervalo e menor que o fim do intervalo
-        if (int(inicio[6::])) == int(fim[6::]) & int(inicio[3:5]) == int(fim[3:5]):
-            if int(inicio[0:2]) < int(fim[0:2]):
+        
+        dia_inicio = int(inicio[0:2])
+        mes_inicio = int(inicio[3:5])
+        ano_inicio = int(inicio[6::])
 
-                #diferença de mês -> mes_final-mes_inicio -> 10-9 == 1
-                dif_meses = int(fim[3:5]) - int(inicio[3:5])
-                #diferença de dias -> dia_final - dia_inicial -> 15 - 12 == 3
-                dif_dias = int(fim[0:2]) - int(inicio[0:2])
+        dia_fim = int(inicio[0:2])
+        mes_fim = int(inicio[3:5])
+        ano_fim = int(inicio[6::])
+        
+        #se ano atual e igual a ano final
+        if ano_inicio == ano_fim:
+            # se mes atual é igual a mes final
+            if mes_inicio == mes_fim:
+                #se o dia atual é menor que o dia final
+                if dia_inicio < dia_fim:
 
-                return f'{(dif_meses*30)+dif_dias}' 
+                    #diferença de dias -> dia_final - dia_inicial -> 15 - 12 == 3
+                    dif_dias = dia_fim - dia_inicio
 
-"""
+                    return f'{dif_dias}'
+                elif int(inicio[0:2]) == int(fim[0:2]):
+                    return '0'
+
+                else:
+                    return 'Erro: A data final é menor que a data inicial'
+
+            elif int(inicio[3:5]) < int(fim[3:5]):
+                pass
+
+            else:
+                return 'Erro: A data final é menor que a data inicial'
+
+        elif (int(inicio[6::])) < int(fim[6::]):
+                pass
+        else:
+            return 'Erro: A data final é menor que a data inicial'
+
+    
+    """ 
 if __name__ == '__main__':
     #print(f'{dia()}/{mes()}/{ano()}')
     #print(nome_mes())
