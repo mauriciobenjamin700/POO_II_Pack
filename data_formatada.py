@@ -150,9 +150,9 @@ class DataFormatada(abc.ABC):
         mes_inicio = int(inicio[3:5])
         ano_inicio = int(inicio[6::])
 
-        dia_fim = int(inicio[0:2])
-        mes_fim = int(inicio[3:5])
-        ano_fim = int(inicio[6::])
+        dia_fim = int(fim[0:2])
+        mes_fim = int(fim[3:5])
+        ano_fim = int(fim[6::])
         
         #se ano atual e igual a ano final
         if ano_inicio == ano_fim:
@@ -165,19 +165,26 @@ class DataFormatada(abc.ABC):
                     dif_dias = dia_fim - dia_inicio
 
                     return f'{dif_dias}'
-                elif int(inicio[0:2]) == int(fim[0:2]):
+                elif dia_inicio == dia_fim:
                     return '0'
 
                 else:
                     return 'Erro: A data final é menor que a data inicial'
 
-            elif int(inicio[3:5]) < int(fim[3:5]):
-                pass
+            elif mes_inicio < mes_fim:
+                calendario = DataFormatada.quantidade_dias_mes(DataFormatada.eh_bissexto(ano_inicio))
+                dias_restantes_mes_inicial = calendario[(mes_inicio-1)] - dia_inicio
+                dias_necessarios_mes_final =  dia_fim
+
+                if mes_fim - mes_inicio == 1:
+                    return str(dias_restantes_mes_inicial + dias_necessarios_mes_final)
+                #cuntinuar dps
+
 
             else:
                 return 'Erro: A data final é menor que a data inicial'
 
-        elif (int(inicio[6::])) < int(fim[6::]):
+        elif ano_inicio < ano_fim:
                 pass
         else:
             return 'Erro: A data final é menor que a data inicial'
