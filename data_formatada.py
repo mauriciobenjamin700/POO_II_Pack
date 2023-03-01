@@ -170,17 +170,25 @@ class DataFormatada(abc.ABC):
 
                 else:
                     return 'Erro: A data final é menor que a data inicial'
-
+            # se o mes atual é menor que o mes final
             elif mes_inicio < mes_fim:
+                #criar um calendário baseado se o ano é bissexto ou não
                 calendario = DataFormatada.quantidade_dias_mes(DataFormatada.eh_bissexto(ano_inicio))
                 dias_restantes_mes_inicial = calendario[(mes_inicio-1)] - dia_inicio
                 dias_necessarios_mes_final =  dia_fim
 
+                #se houver apenas 1 mês de difernça
                 if mes_fim - mes_inicio == 1:
-                    return str(dias_restantes_mes_inicial + dias_necessarios_mes_final)
-                #cuntinuar dps
+                    return str(dias_restantes_mes_inicial + dias_necessarios_mes_final - 1)
+                #se houver mais de 1 mês de diferença, precisamos descobrir quais são
+                else:
+                    total_dias = 0
+                    for meses in range(mes_inicio,mes_fim+1):
+                        total_dias += calendario[meses-1]
 
-
+                    #funcionando, retorna o intervalo entre duas datas
+                    return str(total_dias - dia_inicio - (calendario[mes_fim-1] - dias_necessarios_mes_final + 1))
+                    
             else:
                 return 'Erro: A data final é menor que a data inicial'
 
