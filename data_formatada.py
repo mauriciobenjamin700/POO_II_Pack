@@ -2,8 +2,52 @@ from datetime import datetime
 import abc
 
 class DataFormatada(abc.ABC):
+    """
+    Uma classe voltada para trabalhar com datas/horas e suas peculiaridades
+
+    ...
+
+    Attributes
+    ----------
+   
+    Methods
+    -------
+    data_hora(segundos=False):
+        retorna uma string com a data e hora atuais
+    hora():
+        retorna uma string com a hora atual
+    minutos():
+        retorna uma string com os minutos atuais
+    data():
+        retorna uma string com a data atual
+    dia():
+        retorna uma string com o dia atual
+    mes():
+        retorna uma string com o mês atual
+    ano():
+        retorna uma string com o ano atual
+    nome_mes(mes=None,abreviacao=False):
+        retorna uma string com o nome do mês passado ou atual
+    eh_bissexto(ano):
+        retorna um booleano referente ao fato do ano ser ou não bissexto
+    quantidade_dias_mes(bissexto=False):
+        retorna uma lista com o total de dias de seu respectivo mês
+    quantidade_dias(inicio,fim):
+        retorna uma string com o total de dias contido entre duas datas
+    """
 
     def data_hora(segundos=False):
+        """
+        Caso a função não receba parâmetro, a mesma retorna um string formatada com a data e hora atuais.
+        ex: 02/03/2023 09:31
+        Se receber um parâmetro True:
+
+            parameters:
+                numero {string} : numero da conta que se deseja buscar
+
+            return:
+            Tuple : tupla com o resultado da busca pela conta
+        """
         data = str(datetime.now())
         if segundos == False:
             return f'{data[8:10]}/{data[5:7]}/{data[0:4]} {data[11:16]}'
@@ -193,14 +237,47 @@ class DataFormatada(abc.ABC):
                 return 'Erro: A data final é menor que a data inicial'
 
         elif ano_inicio < ano_fim:
-                pass
+            """
+            se ano_final - ano_inicial == 1:
+                para resolver o caso de uma diferença de anos, preciso concluir o ano inicial e pegar apenas o necessário do ano final.
+            se ano_final - ano_inicial > 1:
+                pegamos o resultado anterior e somamos com o total de dias no intervalo de anos  
+            """                
+            if ano_fim - ano_inicio == 1:
+                #copiar e colar no elif de baixo 
+                calendario = DataFormatada.quantidade_dias_mes(DataFormatada.eh_bissexto(ano_inicio))
+
+                resto_mes_inicial = calendario[mes_inicio-1] - dia_inicio
+                resto_ano_inicial = resto_mes_inicial + sum(calendario[mes_inicio:13])
+
+                necessario_mes_final = dia_fim
+                necessario_ano_final = necessario_mes_final + sum(calendario[0:mes_fim-2])
+
+                #testar se o retorno está correto
+                return str(resto_ano_inicial + necessario_ano_final)
+            
+            elif ano_fim - ano_inicio > 1:
+                """
+                para encontrar a diferença útil, precisamos achar a difereça de anos e reduzir os anos que não pegaremos todos os dias
+                formula: ano final - ano inicial - 1
+                """
+                dias_intervalo_intocado = 0
+                for ano in range(ano_inicio+1,ano_fim):
+                    if DataFormatada.eh_bissexto(ano):
+                        dias_intervalo_intocado+=366
+                    else:
+                        dias_intervalo_intocado += 365
+
+                calendario = DataFormatada.quantidade_dias_mes(DataFormatada.eh_bissexto(ano_inicio))
+
+                resto_mes_inicial = calendario[mes_inicio-1] - dia_inicio
+                resto_ano_inicial = resto_mes_inicial + sum(calendario[mes_inicio:13])
+
+                necessario_mes_final = dia_fim
+                necessario_ano_final = necessario_mes_final + sum(calendario[0:mes_fim-2])
+
+                #testar se o retorno está correto
+                return str(resto_ano_inicial + necessario_ano_final+dias_intervalo_intocado)
+
         else:
             return 'Erro: A data final é menor que a data inicial'
-
-    
-    """ 
-if __name__ == '__main__':
-    #print(f'{dia()}/{mes()}/{ano()}')
-    #print(nome_mes())
-    #print(formatacao.eh_bissexto(2024))
-"""
