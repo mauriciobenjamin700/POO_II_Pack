@@ -249,10 +249,11 @@ class DataFormatada(abc.ABC):
 
                 resto_mes_inicial = calendario[mes_inicio-1] - dia_inicio
                 resto_ano_inicial = resto_mes_inicial + sum(calendario[mes_inicio:13])
-
-                necessario_mes_final = dia_fim
-                necessario_ano_final = necessario_mes_final + sum(calendario[0:mes_fim-2])
-
+                
+                
+                necessario_ano_final = dia_fim
+                if mes_fim > 1:
+                    necessario_ano_final = sum(calendario[0:mes_fim-2]) - dia_fim
                 #testar se o retorno está correto
                 return str(resto_ano_inicial + necessario_ano_final)
             
@@ -272,9 +273,11 @@ class DataFormatada(abc.ABC):
 
                 resto_mes_inicial = calendario[mes_inicio-1] - dia_inicio
                 resto_ano_inicial = resto_mes_inicial + sum(calendario[mes_inicio:13])
-
-                necessario_mes_final = dia_fim
-                necessario_ano_final = necessario_mes_final + sum(calendario[0:mes_fim-2])
+                
+                
+                necessario_ano_final = dia_fim
+                if mes_fim > 1:
+                    necessario_ano_final = sum(calendario[0:mes_fim-2]) - dia_fim
 
                 #testar se o retorno está correto
                 return str(resto_ano_inicial + necessario_ano_final+dias_intervalo_intocado)
