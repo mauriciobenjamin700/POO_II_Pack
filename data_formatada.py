@@ -40,13 +40,14 @@ class DataFormatada(abc.ABC):
         """
         Caso a função não receba parâmetro, a mesma retorna um string formatada com a data e hora atuais.
         ex: 02/03/2023 09:31
-        Se receber um parâmetro True:
+        Se receber um parâmetro True retorna a versão formatada incluindo segundos:
+        ex: 02/03/2023 10:21:49.681464
 
             parameters:
-                numero {string} : numero da conta que se deseja buscar
+                segundos {Bool} : boleano referente a retornar ou não os segundos
 
             return:
-            Tuple : tupla com o resultado da busca pela conta
+                {str} : Data no formato que o usuário definiu
         """
         data = str(datetime.now())
         if segundos == False:
@@ -55,30 +56,102 @@ class DataFormatada(abc.ABC):
             return f'{data[8:10]}/{data[5:7]}/{data[0:4]} {data[11::]}'
 
     def hora():
+        """
+        Retorna um string formatada com a hora atual.
+        ex: 09:31    
+
+            parameters:
+                None
+
+            return:
+                {str} : Hora atual
+        """
         data = str(datetime.now())
         return f'{data[11:16]}'
 
     def minutos():
+        """
+        Retorna um string formatada com os minutos atuais.
+        ex: 27    
+
+            parameters:
+                None
+
+            return:
+                {str} : minutos atuais
+        """
         data = str(datetime.now())
         return f'{data[14:16]}'
 
     def data():
+        """
+        Retorna um string formatada com a data atual.
+        ex: 02/03/2023    
+
+            parameters:
+                None
+
+            return:
+                {str} : Data atual
+        """
         data = str(datetime.now())
         return f'{data[8:10]}/{data[5:7]}/{data[0:4]}'
 
     def dia():
+        """
+        Retorna um string com o dia atual.
+        ex:02    
+
+            parameters:
+                None
+
+            return:
+                String : Dia atual
+        """
         data = str(datetime.now())
         return f'{data[8:10]}'
 
     def mes():
+        """
+        Retorna um string com o mês atual.
+        ex: 03    
+
+            parameters:
+                None
+
+            return:
+                String : Mês atual
+        """
         data = str(datetime.now())
         return f'{data[5:7]}'
 
     def ano():
+        """
+        Retorna um string com o ano atual.
+        ex: 2023    
+
+            parameters:
+                None
+
+            return:
+                String : Ano atual
+        """
         data = str(datetime.now())
         return f'{data[0:4]}'
 
     def nome_mes(mes=None,abreviacao=False):
+        """
+        Retorna um string com o nome do mês ou sua abreviação
+        se o mês não for passado como parâmetro, irá ser retornado o nome do mês atual
+        se for passado o valor Booleano True para o parâmetro abrevicao, a função irá retornar o nome abreviado do respectivo mês 
+        ex:09:31    
+
+            parameters:
+                mes {String} : 
+
+            return:
+                String : Nome completo ou abreviado de um determinado mês
+        """
         if mes == None:
             data = str(datetime.now())
             mes = data[5:7]
