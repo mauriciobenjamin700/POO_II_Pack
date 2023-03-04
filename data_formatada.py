@@ -147,7 +147,8 @@ class DataFormatada(abc.ABC):
         ex:09:31    
 
             parameters:
-                mes {String} : 
+                mes {String} : Mês atual em formato de string ex: 01
+                abreviacao {Bool} : Booleano referente ao tipo do retorno abreviado ou não 
 
             return:
                 String : Nome completo ou abreviado de um determinado mês
@@ -220,6 +221,15 @@ class DataFormatada(abc.ABC):
             return 'ano invalido!'
 
     def eh_bissexto(ano):
+        """
+        Retorna um Booleano referente ao fato do ano passado como parâmetro ser ou não bissexto    
+
+            parameters:
+                ano {String} : Mês atual em formato de string ex: 2023
+
+            return:
+                {Bool} : Booleano referente ao fato do ano passado ser ou não bissexto.
+        """
         ano = int(ano)
         if ano % 4 == 0:
             return True
@@ -229,6 +239,17 @@ class DataFormatada(abc.ABC):
     # esta função deve receber duas datas e retornar a quantidade de dias dentro do intervalo das datas
 
     def quantidade_dias_mes(bissexto=False):
+        """
+        Retorna uma lista de inteiros com os valores em dia de cada mês de um ano inteiro
+        Se o parâmetro bissexto receber o valor True, o ano de fevereiro irá possuir valor inteiro de 29 
+        
+
+            parameters:
+                bissexto {Bool} : Booleano referente ao tipo do retorno abreviado ou não 
+
+            return:
+                {list} : Lista com os valores em dia(inteiros) de todos os meses do ano
+        """
         if bissexto == False:
             jan = 31
             fev = 28
@@ -261,52 +282,65 @@ class DataFormatada(abc.ABC):
 
 
     def quantidade_dias(inicio,fim): # teste usando 12/09/2021 -> 15/10/2021
-        #testar se estamos no mesmo ano e o inicio do intervalo e menor que o fim do intervalo
-        
+        """
+        Retorna uma string com a quantidade de dias dentro do intervalo aberto de duas datas
+        ex: 
+        inicio = 12/09/2021 
+        fim = 15/10/2021
+        retorno == '32'
+
+            parameters:
+                inicio {str} : String com a data do inicio do intervalo com separadores. Ex: 12/09/2021 
+                fim {str} : String com a data do fim do intervalo com separadores. Ex: 15/10/2021
+            return:
+                {str} : String com a quantidade de dias dentro do intervalo passado
+        """    
+        #dados do ano inicio do intervalo
         dia_inicio = int(inicio[0:2])
         mes_inicio = int(inicio[3:5])
         ano_inicio = int(inicio[6::])
-
+        #dados do ano fim do intervalo
         dia_fim = int(fim[0:2])
         mes_fim = int(fim[3:5])
-        ano_fim = int(fim[6::])
+        ano_fim = int(fim[6:10])
+
         
-        #se ano atual e igual a ano final
+
         if ano_inicio == ano_fim:
-            # se mes atual é igual a mes final
-            if mes_inicio == mes_fim:
+
+            if mes_inicio == mes_fim:#pronto
                 #se o dia atual é menor que o dia final
-                if dia_inicio < dia_fim:
+                if dia_inicio < dia_fim:#pronto
+                    #diferença de dias se calcula-> dia_final - dia_inicial - 1-> 15 - 12 -1 == 2 
+                    # -1 é referente ao fato do intervalo ser aberto logo pegamos os das 13,14. Totalizando 2 dias
+                    dif_dias = dia_fim - dia_inicio - 1
 
-                    #diferença de dias -> dia_final - dia_inicial -> 15 - 12 == 3
-                    dif_dias = dia_fim - dia_inicio
+                    return f'{dif_dias}' #pronto
+                elif dia_inicio == dia_fim:#pronto
+                    return 'Erro: A data final é igual a data inicial.' #pronto
 
-                    return f'{dif_dias}'
-                elif dia_inicio == dia_fim:
-                    return '0'
+                else:#pronto
+                    return 'Erro: A data final é menor que a data inicial.' #pronto
 
-                else:
-                    return 'Erro: A data final é menor que a data inicial'
-            # se o mes atual é menor que o mes final
-            elif mes_inicio < mes_fim:
+            elif mes_inicio < mes_fim:#pronta
                 #criar um calendário baseado se o ano é bissexto ou não
                 calendario = DataFormatada.quantidade_dias_mes(DataFormatada.eh_bissexto(ano_inicio))
                 dias_restantes_mes_inicial = calendario[(mes_inicio-1)] - dia_inicio
                 dias_necessarios_mes_final =  dia_fim
 
                 #se houver apenas 1 mês de difernça
-                if mes_fim - mes_inicio == 1:
+                if mes_fim - mes_inicio == 1:#pronta
                     return str(dias_restantes_mes_inicial + dias_necessarios_mes_final - 1)
                 #se houver mais de 1 mês de diferença, precisamos descobrir quais são
-                else:
+                else:#pronta
                     total_dias = 0
                     for meses in range(mes_inicio,mes_fim+1):
                         total_dias += calendario[meses-1]
 
                     #funcionando, retorna o intervalo entre duas datas
                     return str(total_dias - dia_inicio - (calendario[mes_fim-1] - dias_necessarios_mes_final + 1))
-                    
-            else:
+         
+            else:#pronta
                 return 'Erro: A data final é menor que a data inicial'
 
         elif ano_inicio < ano_fim:
@@ -316,17 +350,21 @@ class DataFormatada(abc.ABC):
             se ano_final - ano_inicial > 1:
                 pegamos o resultado anterior e somamos com o total de dias no intervalo de anos  
             """                
-            if ano_fim - ano_inicio == 1:
-                #copiar e colar no elif de baixo 
+            if ano_fim - ano_inicio == 1:#pronto
+               
                 calendario = DataFormatada.quantidade_dias_mes(DataFormatada.eh_bissexto(ano_inicio))
 
                 resto_mes_inicial = calendario[mes_inicio-1] - dia_inicio
-                resto_ano_inicial = resto_mes_inicial + sum(calendario[mes_inicio:13])
-                
-                
-                necessario_ano_final = dia_fim
+                resto_ano_inicial = resto_mes_inicial + sum(calendario[mes_inicio:12])
+                #######################################################################
+                # -1 necessário para garantir o intervalo aberto 
+                necessario_ano_final = 0
+                if mes_fim == 1:
+                    return str(resto_ano_inicial + dia_fim - 1)
                 if mes_fim > 1:
-                    necessario_ano_final = sum(calendario[0:mes_fim-2]) - dia_fim
+                    #formular novo calendário testando se o ano final é ou não bissexto
+                    calendario = DataFormatada.quantidade_dias_mes(DataFormatada.eh_bissexto(ano_fim))
+                    necessario_ano_final = sum(calendario[0:mes_fim-1]) + (dia_fim-1)
                 #testar se o retorno está correto
                 return str(resto_ano_inicial + necessario_ano_final)
             
@@ -345,15 +383,17 @@ class DataFormatada(abc.ABC):
                 calendario = DataFormatada.quantidade_dias_mes(DataFormatada.eh_bissexto(ano_inicio))
 
                 resto_mes_inicial = calendario[mes_inicio-1] - dia_inicio
-                resto_ano_inicial = resto_mes_inicial + sum(calendario[mes_inicio:13])
+                resto_ano_inicial = resto_mes_inicial + sum(calendario[mes_inicio:12])
                 
-                
-                necessario_ano_final = dia_fim
+                necessario_ano_final = 0
+                if mes_fim == 1:
+                    return str(resto_ano_inicial + dia_fim - 1+ dias_intervalo_intocado)
                 if mes_fim > 1:
-                    necessario_ano_final = sum(calendario[0:mes_fim-2]) - dia_fim
-
-                #testar se o retorno está correto
+                    #formular novo calendário testando se o ano final é ou não bissexto
+                    calendario = DataFormatada.quantidade_dias_mes(DataFormatada.eh_bissexto(ano_fim))
+                    necessario_ano_final = sum(calendario[0:mes_fim-1]) + (dia_fim-1)
                 return str(resto_ano_inicial + necessario_ano_final+dias_intervalo_intocado)
+  
 
         else:
             return 'Erro: A data final é menor que a data inicial'

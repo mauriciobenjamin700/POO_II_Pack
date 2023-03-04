@@ -16,10 +16,14 @@ else:
 #print(f'Estamos neste momento na hora {DataFormatada.hora()}')
 
 #print(DataFormatada.data_hora())
-print(DataFormatada.data_hora(True))
+#print(DataFormatada.data_hora(True))
 
 #print(DataFormatada.minutos())
 
 #print(f'A diferença entre 12/09/2021 e 15/10/2021 é {DataFormatada.quantidade_dias("12/09/2021", "15/10/2021")}')
 
-#print(DataFormatada.quantidade_dias('01/01/2023','01/03/2024'))
+#print(DataFormatada.quantidade_dias('12/09/2021','12/12/2021'))
+print(DataFormatada.quantidade_dias('25/12/1695','02/03/2023'))
+
+#
+#print(DataFormatada.quantidade_dias('12/09/2021','15/10/2021'))
