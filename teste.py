@@ -23,7 +23,7 @@ else:
 #print(f'A diferença entre 12/09/2021 e 15/10/2021 é {DataFormatada.quantidade_dias("12/09/2021", "15/10/2021")}')
 
 #print(DataFormatada.quantidade_dias('12/09/2021','12/12/2021'))
-print(DataFormatada.quantidade_dias('25/12/1695','02/03/2023'))
+print(DataFormatada.quantidade_dias('25/12/2022','02/03/2024'))
 
 #
 #print(DataFormatada.quantidade_dias('12/09/2021','15/10/2021'))

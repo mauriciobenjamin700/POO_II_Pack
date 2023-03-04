@@ -36,7 +36,7 @@ class DataFormatada(abc.ABC):
         retorna uma string com o total de dias contido entre duas datas
     """
 
-    def data_hora(segundos=False):
+    def data_hora(segundos=False):#pronta
         """
         Caso a função não receba parâmetro, a mesma retorna um string formatada com a data e hora atuais.
         ex: 02/03/2023 09:31
@@ -55,7 +55,7 @@ class DataFormatada(abc.ABC):
         else:
             return f'{data[8:10]}/{data[5:7]}/{data[0:4]} {data[11::]}'
 
-    def hora():
+    def hora():#pronta
         """
         Retorna um string formatada com a hora atual.
         ex: 09:31    
@@ -69,7 +69,7 @@ class DataFormatada(abc.ABC):
         data = str(datetime.now())
         return f'{data[11:16]}'
 
-    def minutos():
+    def minutos():#pronta
         """
         Retorna um string formatada com os minutos atuais.
         ex: 27    
@@ -83,7 +83,7 @@ class DataFormatada(abc.ABC):
         data = str(datetime.now())
         return f'{data[14:16]}'
 
-    def data():
+    def data():#pronta
         """
         Retorna um string formatada com a data atual.
         ex: 02/03/2023    
@@ -97,21 +97,21 @@ class DataFormatada(abc.ABC):
         data = str(datetime.now())
         return f'{data[8:10]}/{data[5:7]}/{data[0:4]}'
 
-    def dia():
+    def dia():#pronta
         """
-        Retorna um string com o dia atual.
+        Retorna uma string com o dia atual.
         ex:02    
 
             parameters:
                 None
 
             return:
-                String : Dia atual
+                {str} : Dia atual
         """
         data = str(datetime.now())
         return f'{data[8:10]}'
 
-    def mes():
+    def mes():#pronto
         """
         Retorna um string com o mês atual.
         ex: 03    
@@ -120,12 +120,12 @@ class DataFormatada(abc.ABC):
                 None
 
             return:
-                String : Mês atual
+                {str} : Mês atual
         """
         data = str(datetime.now())
         return f'{data[5:7]}'
 
-    def ano():
+    def ano():#pronto
         """
         Retorna um string com o ano atual.
         ex: 2023    
@@ -134,12 +134,12 @@ class DataFormatada(abc.ABC):
                 None
 
             return:
-                String : Ano atual
+                {str} : Ano atual
         """
         data = str(datetime.now())
         return f'{data[0:4]}'
 
-    def nome_mes(mes=None,abreviacao=False):
+    def nome_mes(mes=None,abreviacao=False):#pronto
         """
         Retorna um string com o nome do mês ou sua abreviação
         se o mês não for passado como parâmetro, irá ser retornado o nome do mês atual
@@ -147,11 +147,11 @@ class DataFormatada(abc.ABC):
         ex:09:31    
 
             parameters:
-                mes {String} : Mês atual em formato de string ex: 01
+                mes {str} : Mês atual em formato de string ex: 01
                 abreviacao {Bool} : Booleano referente ao tipo do retorno abreviado ou não 
 
             return:
-                String : Nome completo ou abreviado de um determinado mês
+                {str} : Nome completo ou abreviado de um determinado mês
         """
         if mes == None:
             data = str(datetime.now())
@@ -220,7 +220,7 @@ class DataFormatada(abc.ABC):
         else:
             return 'ano invalido!'
 
-    def eh_bissexto(ano):
+    def eh_bissexto(ano):#pronto
         """
         Retorna um Booleano referente ao fato do ano passado como parâmetro ser ou não bissexto    
 
@@ -238,7 +238,7 @@ class DataFormatada(abc.ABC):
     
     # esta função deve receber duas datas e retornar a quantidade de dias dentro do intervalo das datas
 
-    def quantidade_dias_mes(bissexto=False):
+    def quantidade_dias_mes(bissexto=False):#pronto
         """
         Retorna uma lista de inteiros com os valores em dia de cada mês de um ano inteiro
         Se o parâmetro bissexto receber o valor True, o ano de fevereiro irá possuir valor inteiro de 29 
@@ -281,7 +281,7 @@ class DataFormatada(abc.ABC):
             return [jan,fev,mar,Abr,maio,jun,jul,ago,set,out,nov,dez]
 
 
-    def quantidade_dias(inicio,fim): # teste usando 12/09/2021 -> 15/10/2021
+    def quantidade_dias(inicio,fim): #pronto
         """
         Retorna uma string com a quantidade de dias dentro do intervalo aberto de duas datas
         ex: 
@@ -343,7 +343,7 @@ class DataFormatada(abc.ABC):
             else:#pronta
                 return 'Erro: A data final é menor que a data inicial'
 
-        elif ano_inicio < ano_fim:
+        elif ano_inicio < ano_fim:#pronto
             """
             se ano_final - ano_inicial == 1:
                 para resolver o caso de uma diferença de anos, preciso concluir o ano inicial e pegar apenas o necessário do ano final.
@@ -394,6 +394,5 @@ class DataFormatada(abc.ABC):
                     necessario_ano_final = sum(calendario[0:mes_fim-1]) + (dia_fim-1)
                 return str(resto_ano_inicial + necessario_ano_final+dias_intervalo_intocado)
   
-
         else:
             return 'Erro: A data final é menor que a data inicial'
