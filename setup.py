@@ -1,13 +1,10 @@
 from setuptools import setup
 
-with open("README.md", "r") as arq:
-    readme = arq.read()
-
 setup(name='data_formatada',
     version='1.0',
     license='MIT License',
     author='Mauricio Benjamin da Rocha & Pedro Antonio Vital de Sousa Carvalho',
-    long_description=readme,
+    long_description='https://mauriciobenjamin700.github.io/POO_II_Pack/',
     long_description_content_type="text/markdown",
     author_email='mauriciobenjamin700@gmail.com',
     keywords='datas tempo',
