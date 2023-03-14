@@ -6,7 +6,7 @@ Este pacote está voltado para trabalhar com datas/horas e suas peculiaridades e
 
 ## Instalação
 
-    pip install data_formatada
+    pip install data-formatada
 
 ## uso:
 
